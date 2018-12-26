@@ -4,6 +4,6 @@ runtime: python37
 handlers:
 - url: /static
   static_dir: static
-- url: /.*
+- url: auto
   script: server.app
 # [END handlers]

@@ -1,0 +1,75 @@
+﻿PROJETO ASINT:
+
+Admin:
+-local login (mandar user e password para o servidor)
+-mandar edificios para o servidor (provavelmente ficheiro de input?)
+-fazer várias queries sobre os utilizadores loggados e asua localização
+
+Users:
+-logging pelo fenix (FENIX API no enunciado)
+-mandam localização para o sistema (Google: javascript GPS Location)
+-mandam mensagens para users nearby e ver quem são os users nearby e no mesmo edificio (o user é que define o que é nearby - range)
+-receber mensagens de bots e outros users
+
+Bots:
+-mandam mensagens para APENAS um edificio(e todos os users lá)
+-quando se registam recebem um edificio
+-usar  um mecanismo de autenticação de bots semelhante ao dos users
+
+
+Servidor:
+-flask(?)
+-ter uma database para Buildings, outra para logs de users, outra talvez um grafo que mantem track dos users e onde estão, a mesma coisa para os bots
+-garantir que um bot só manda para o edificio onde foi assigned(proteger contra bots que tentam mandar para outros sitios)
+
+
+
+
+DEFINIR API:
+
+admin: 
+-pode ser uma app local que tem uma autenticação e depois usa os endpoints
+-não pode ser totalmente REST (/API/EDIFICIO/CENAS) porque não vamos ter os conceitos de "Hiérarquias"?(pode fazer-se assim mas dá mais trabalho e "é estúpido")
+-talvez mandar as variáveis do e dificios e dos users e do que for (i guess?) -talvez fazer mais endpoints em vez de REST "puro"
+
+users:
+ajax- tenho um ciente que faz pedidos HTTP para invocar WebServices
+
+
+AULA 28/11
+
+QUERIES :
+o prof exemplificou no quadro /API/Admin/Logs?user=1717717
+
+LOGS:
+vão ser listas de 1- messages 2- movements
+
+query a message by user : {"user": 'asdasd'} user can be null for all messages
+
+o user tambem "pode" guardar logs de todas as mensagens que recebeu (para alem das que enviou)
+
+quão mais "rica for a data, masi complexo é aceder-lhe
+
+OS LOGS PODEM SER LISTAS DE OBJETOS
+
+
+BOTS: 
+import request
+
+while true
+sleep 1sec 
+request.post(url)
+
+
+on the server:
+
+route.add(bot)
+building = bla
+data = bla
+for u in user
+	if user.building = building
+		send message 
+
+OU 
+ for u in BUilding.users
+  send message to u

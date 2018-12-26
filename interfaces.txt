@@ -1,0 +1,31 @@
+﻿Interface/API do servidor:
+
+Endpoints 
+
+Para o Admin:
+(done)-receive Buildings (uniformizado tipo vetor de strings)
+(done)-list all users
+(done)-list users from a building
+(done)-history of user
+(done)-history of building
+-create bot(?)
+
+Para os users:
+-send localization(?)
+-send messages to users nearby
+-define nearby distance
+-see who is nearby
+
+Para os Bots:
+-register to building
+-send message to building
+
+Para Buildings DB:(ter uma class no meio para que o server nao aceda diretamente à DB)
+-insert Building in DB
+-list all buildings
+-list by something
+
+Para a Logs DB:
+-insert log from user
+-list log of users
+-list log of building

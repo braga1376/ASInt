@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UserMainPage</title>
+</head>
+
+<body onload="getLocation();">
+<h1>User ID?</h1>
+<div id = "divDest"></div>
+
+    <input id = "userID" type="text" name="userID"/>USER ID<br/>
+    <input type="button" onclick="sendLocation();">SEND LOG</input>
+
+
+<script>
+
+var x;
+var y;
+
+function sendLocation(){
+	var xhttp = new XMLHttpRequest();
+	var id = document.getElementById("userID").value;
+    var req = "/API/Users/Location?UserID="+id+"&x="+x+"&y="+y+"&building="+2;
+	xhttp.open("GET",req, true)
+	xhttp.send()
+}
+
+
+function getLocation() {
+	var errorCallback;
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition,errorCallback,{timeout:1000});
+  } else { 
+   	document.getElementById("divDest").innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x = position.coords.latitude;
+  y = position.coords.longitude;
+
+}
+</script>
+</body>
+</html>

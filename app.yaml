@@ -1,9 +1,2 @@
 runtime: python37
-  
-# [START handlers]
-handlers:
-- url: /static
-  static_dir: static
-- url: auto
-  script: server.app
-# [END handlers]
+entrypoint: gunicorn -b :$PORT server:app

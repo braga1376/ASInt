@@ -2,22 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c5a82081-c590-47b5-b8d7-ae67a85ecb14" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appengine_config.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bd_dumpBbuilds" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bd_dumpLlogs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bd_dumpbuilds" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/building.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildingDB.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildings" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logDB.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/UserMainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/server/templates/UserMainPage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/mainpage.html" beforeDir="false" afterPath="$PROJECT_DIR$/server/templates/mainpage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/server/templates/test.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app.yaml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -288,12 +273,12 @@
       <workItem from="1545591611240" duration="757000" />
       <workItem from="1545842878021" duration="2094000" />
       <workItem from="1545850343386" duration="579000" />
-      <workItem from="1545853787079" duration="1980000" />
+      <workItem from="1545853787079" duration="3179000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="102594000" />
+    <option name="totallyTimeSpent" value="103793000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -313,7 +298,7 @@
       <window_info id="Favorites" order="2" sideWeight="0.5021552" side_tool="true" weight="0.15733737" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49848714" visible="true" weight="0.33977455" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49848714" weight="0.33977455" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.5748792" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />

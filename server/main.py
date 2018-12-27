@@ -13,7 +13,7 @@ app = Flask(__name__)
 BuildsDB = buildingDB("builds")
 LogsDB = logDB("logs")
 
-admins = {'francisco':'123','migue':'123'}
+admins = {'francisco':'123','miguel':'123'}
 
 @app.route('/')
 def mainpage():
@@ -30,9 +30,9 @@ def adminLogin(): #receive and verify user and password of admin
 
     try:
         if admins[admin] == pswd:
-            return 1
+            return "true"
     except Exception as e:
-        return 0
+        return "false"
 
 @app.route('/API/Admin/Buildings', methods = ['POST'])
 def receiveBuildings():#receive all buildings fromm admin and send them to DB

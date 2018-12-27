@@ -2,6 +2,7 @@ import requests
 import json
 import copy
 import sys
+import getpass
 
 
 class Admin:
@@ -18,6 +19,7 @@ class Admin:
     def postToURI(self, uri, d):
         r = requests.post(self.host + uri, data = d )
         print(r.text)
+        return r.text
 
     def readFileToJSon(self, f):
         d = {}
@@ -75,11 +77,24 @@ class Admin:
                 print("'%s' is not a valid command" % (command))
 
 def main():
-    admin = Admin('https://asint-226517.appspot.com')
+    
+    user = getpass.getuser()
+
+    admin = Admin('0.0.0.0:8080')
+
+    for x in range (0,3):
+        pswd = getpass.getpass('Password:')
+        admind = {'admin':user,'pswd':pswd}
+        uri = '/API/Admin'
+        print(json.dumps(admind))
+        if admin.postToURI(uri, json.dumps(admind)):
+            break
+        print('Invalid Admin User or Password')
+
+    #admin = Admin('https://asint-226517.appspot.com', user, pswd)
+
     admin.menu()
     # admin = Admin(argv)2
-
-
 
 if __name__ == "__main__":
     main()

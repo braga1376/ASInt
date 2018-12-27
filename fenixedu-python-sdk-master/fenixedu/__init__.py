@@ -98,7 +98,7 @@ class FenixEduClient(object):
 		r = self._request(url, params = r_params, method = Requests.POST, headers = r_headers)
 		response = r.json()
 		if ERROR_KEY in response:
-			raise Exception('Error tryng to get an access token')
+			raise Exception('Error trying to get an access token')
 
 		access_token = response['access_token']
 		refresh_token = response['refresh_token']

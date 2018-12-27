@@ -1,10 +1,8 @@
-from flask import Flask
-from flask import render_template
-from flask import request
-from flask import jsonify
 import os
-
 import json
+import fenixedu
+from flask import Flask, render_template, request, jsonify, redirect
+
 from buildingDB import *
 from logDB import *
 
@@ -77,9 +75,23 @@ def buildingHistory(id): #returns building logs history
 #------------------USERS---------------------
 
 @app.route('/API/Users')
-def userMainPage():
-    return render_template("UserMainPage.html")
+def userLogin():
+    config = fenixedu.FenixEduConfiguration.fromConfigFile()
+    client = fenixedu.FenixEduClient(config)
+    url = client.get_authentication_url()
+    return redirect(url)
 
+@app.route('/API/Users/Home', methods = ["GET"])
+def userMainPage():
+    if request.args["code"] == None:
+        pass
+    else:
+        code = request.args["code"]
+        config = fenixedu.FenixEduConfiguration.fromConfigFile()
+        client = fenixedu.FenixEduClient(config)
+        user = client.get_user_by_code(code)
+
+    return render_template("UserMainPage.html")
 
 @app.route('/API/Users/Location', methods = ["GET"])
 def userLocation():#receive user location

@@ -80,14 +80,15 @@ def main():
     
     user = getpass.getuser()
 
-    admin = Admin('0.0.0.0:8080')
+    #admin = Admin('0.0.0.0:8080')
+    admin = Admin('http://127.0.0.1:5000')
 
     for x in range (0,3):
         pswd = getpass.getpass('Password:')
-        admind = {'admin':user,'pswd':pswd}
+        admind = {'admin':user,'pswd':str(pswd)}
         uri = '/API/Admin'
         print(json.dumps(admind))
-        if admin.postToURI(uri, json.dumps(admind)):
+        if admin.postToURI(uri, json.dumps(admind)) == "true":
             break
         print('Invalid Admin User or Password')
 

@@ -9,6 +9,7 @@ from buildingDB import *
 from logDB import *
 
 app = Flask(__name__)
+
 BuildsDB = buildingDB("builds")
 LogsDB = logDB("logs")
 
@@ -123,3 +124,6 @@ def register():
 @app.route('/API/Bots/Message')
 def botMessage():
     pass
+
+if __name__ == '__main__':
+	app.run(host = '0.0.0.0', port = 8080, debug = True)

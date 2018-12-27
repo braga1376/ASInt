@@ -2,98 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="696e707e-ede2-4c99-b415-ae65cdcfd417" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../env/bin/python" beforeDir="false" afterPath="$PROJECT_DIR$/../env/bin/python" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/bin/python2" beforeDir="false" afterPath="$PROJECT_DIR$/../env/bin/python2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/bin/python2.7" beforeDir="false" afterPath="$PROJECT_DIR$/../env/bin/python2.7" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/include/python2.7" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/UserDict.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/UserDict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/_abcoll.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/_abcoll.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/_weakrefset.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/_weakrefset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/abc.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/abc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/codecs.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/codecs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/copy_reg.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/copy_reg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/encodings" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/fnmatch.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/fnmatch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/genericpath.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/genericpath.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/lib-dynload" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/linecache.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/linecache.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/locale.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/locale.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/ntpath.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/ntpath.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/os.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/os.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/posixpath.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/posixpath.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/re.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/re.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/sre.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/sre.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/sre_compile.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/sre_compile.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/sre_constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/sre_constants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/sre_parse.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/sre_parse.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/stat.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/stat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/types.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/types.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/lib/python2.7/warnings.py" beforeDir="false" afterPath="$PROJECT_DIR$/../env/lib/python2.7/warnings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/local/bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/local/include" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../env/local/lib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fenixedu-python-sdk-master/fenixedu/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../fenixedu-python-sdk-master/fenixedu/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bd_dumpLlogs" beforeDir="false" afterPath="$PROJECT_DIR$/bd_dumpLlogs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/bin/chardetect" beforeDir="false" afterPath="$PROJECT_DIR$/env/bin/chardetect" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/bin/easy_install" beforeDir="false" afterPath="$PROJECT_DIR$/env/bin/easy_install" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/bin/easy_install-2.7" beforeDir="false" afterPath="$PROJECT_DIR$/env/bin/easy_install-2.7" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/bin/flask" beforeDir="false" afterPath="$PROJECT_DIR$/env/bin/flask" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/bin/futurize" beforeDir="false" afterPath="$PROJECT_DIR$/env/bin/futurize" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/bin/geocode" beforeDir="false" afterPath="$PROJECT_DIR$/env/bin/geocode" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/bin/gunicorn" beforeDir="false" afterPath="$PROJECT_DIR$/env/bin/gunicorn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/bin/gunicorn_paster" beforeDir="false" afterPath="$PROJECT_DIR$/env/bin/gunicorn_paster" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/bin/pasteurize" beforeDir="false" afterPath="$PROJECT_DIR$/env/bin/pasteurize" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/bin/pip" beforeDir="false" afterPath="$PROJECT_DIR$/env/bin/pip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/bin/pip2" beforeDir="false" afterPath="$PROJECT_DIR$/env/bin/pip2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/bin/pip2.7" beforeDir="false" afterPath="$PROJECT_DIR$/env/bin/pip2.7" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/bin/python" beforeDir="false" afterPath="$PROJECT_DIR$/env/bin/python" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/bin/python-config" beforeDir="false" afterPath="$PROJECT_DIR$/env/bin/python-config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/bin/python2" beforeDir="false" afterPath="$PROJECT_DIR$/env/bin/python2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/bin/python2.7" beforeDir="false" afterPath="$PROJECT_DIR$/env/bin/python2.7" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/bin/wheel" beforeDir="false" afterPath="$PROJECT_DIR$/env/bin/wheel" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/include/python2.7" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/UserDict.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/UserDict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/_abcoll.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/_abcoll.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/_weakrefset.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/_weakrefset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/abc.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/abc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/codecs.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/codecs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/copy_reg.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/copy_reg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/encodings" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/fnmatch.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/fnmatch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/genericpath.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/genericpath.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/lib-dynload" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/linecache.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/linecache.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/locale.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/locale.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/ntpath.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/ntpath.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/os.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/os.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/posixpath.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/posixpath.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/re.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/re.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna-2.7.dist-info/LICENSE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna-2.7.dist-info/LICENSE.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna-2.7.dist-info/METADATA" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna-2.7.dist-info/METADATA" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna-2.7.dist-info/WHEEL" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna-2.7.dist-info/WHEEL" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna-2.7.dist-info/top_level.txt" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna-2.7.dist-info/top_level.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna/codec.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna/codec.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna/compat.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna/compat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna/core.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna/idnadata.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna/idnadata.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna/intranges.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna/intranges.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna/package_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna/package_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna/uts46data.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/site-packages/idna/uts46data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/site-packages/markupsafe/_speedups.so" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/site-packages/markupsafe/_speedups.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/sre.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/sre.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/sre_compile.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/sre_compile.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/sre_constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/sre_constants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/sre_parse.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/sre_parse.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/stat.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/stat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/types.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/types.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/lib/python2.7/warnings.py" beforeDir="false" afterPath="$PROJECT_DIR$/env/lib/python2.7/warnings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/local/bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/local/include" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/env/local/lib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -229,12 +138,12 @@
       <option name="presentableId" value="Default" />
       <updated>1545925547842</updated>
       <workItem from="1545925551734" duration="2207000" />
-      <workItem from="1545934222599" duration="822000" />
+      <workItem from="1545934222599" duration="1418000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3029000" />
+    <option name="totallyTimeSpent" value="3625000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -244,7 +153,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32850242" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32850242" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3993559" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />

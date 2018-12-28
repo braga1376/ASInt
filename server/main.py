@@ -15,7 +15,7 @@ admins = {'francisco':'123','miguel':'123'}
 
 @app.route('/')
 def mainpage():
-    return render_template("mainPage.html")
+    return render_template("mainPage.html", data = BuildsDB.listAllBuildings())
 
 #------------------ADMIN---------------------
 
@@ -90,7 +90,6 @@ def userMainPage():
         config = fenixedu.FenixEduConfiguration.fromConfigFile()
         client = fenixedu.FenixEduClient(config)
         user = client.get_user_by_code(code)
-
     return render_template("UserMainPage.html")
 
 @app.route('/API/Users/Location', methods = ["GET"])

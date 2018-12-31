@@ -1,5 +1,3 @@
-from building import *
-from log import *
 from google.cloud import datastore
 
 buildingEnt = 'building'

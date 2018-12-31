@@ -3,7 +3,6 @@ import json
 import fenixedu
 from flask import Flask, render_template, request, jsonify, redirect
 
-from logDB import *
 from cache import *
 from datastore import *
 

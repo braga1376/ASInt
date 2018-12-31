@@ -3,19 +3,21 @@ import json
 import fenixedu
 from flask import Flask, render_template, request, jsonify, redirect
 
-from buildingDB import *
 from logDB import *
+from cache import *
+from datastore import *
 
 app = Flask(__name__)
 
-BuildsDB = buildingDB("builds")
-LogsDB = logDB("logs")
+datastore = Datastore()
+cache = Cache()
 
 admins = {'francisco':'123','miguel':'123'}
 
+
 @app.route('/')
 def mainpage():
-    return render_template("mainPage.html", data = BuildsDB.listAllBuildings())
+    return render_template("mainPage.html", data = datastore.listAllBuildings())
 
 #------------------ADMIN---------------------
 
@@ -44,37 +46,37 @@ def receiveBuildings():#receive all buildings fromm admin and send them to DB
         name = b['name']
         x = b['x']
         y = b['y']
-        BuildsDB.addBuilding(bid, name, x, y)
+        datastore.addBuilding(bid, name, x, y)
 
-    builds = BuildsDB.listAllBuildings()
-    bdict = list(map(lambda x: x.to_dict(), builds))
-    return jsonify(bdict)
+    builds = datastore.listAllBuildings()
+    #bdict = list(map(lambda x: x.to_dict(), builds))
+    return jsonify(builds)
     
 @app.route('/API/Admin/Users')
 def sendUsers(): #list all users
-    users = LogsDB.listUsers()
+    users = datastore.listUsers()
     return jsonify(users)   
 
 @app.route('/API/Admin/Buildings/<id>/Users')
-def usersOnBuilding(id): #list all users from a building
-    users = BuildsDB.listBuildingUsers(id)
+def usersInBuilding(id): #list all users from a building
+    users = datastore.listBuildingUsers(id)
     return jsonify(users)
 
 @app.route('/API/Admin/Logs/Users/<id>', methods = ["GET"])
 def userHistory(id): #returns user logs history
-    logs = LogsDB.listUserLogs(id)
-    logsdict = list(map(lambda x: x.to_dict(), logs))
-    return jsonify(logsdict)
+    logs = datastore.listUserLogs(id)
+    #logsdict = list(map(lambda x: x.to_dict(), logs))
+    return jsonify(logs)
 
 @app.route('/API/Admin/Logs/Buildings/<id>')
 def buildingHistory(id): #returns building logs history
-    logs = LogsDB.listBuildingLogs(id)
-    logsdict = list(map(lambda x: x.to_dict(), logs))
-    return jsonify(logsdict)
+    logs = datastore.listBuildingLogs(id)
+    #logsdict = list(map(lambda x: x.to_dict(), logs))
+    return jsonify(logs)
 
 #------------------USERS---------------------
 
-@app.route('/API/Users')
+@app.route('/API/Users/Login')
 def userLogin():
     config = fenixedu.FenixEduConfiguration.fromConfigFile()
     client = fenixedu.FenixEduClient(config)
@@ -90,10 +92,16 @@ def userMainPage():
         config = fenixedu.FenixEduConfiguration.fromConfigFile()
         client = fenixedu.FenixEduClient(config)
         user = client.get_user_by_code(code)
-    return render_template("UserMainPage.html")
+        person = client.get_person(user)
+        cache.insert(person['username'], code, 60)
+        datastore.addUser(person['username'])
+    return render_template("UserMainPage.html", username = person['username'])
 
 @app.route('/API/Users/Location', methods = ["GET"])
 def userLocation():#receive user location
+    if not cache.check("ist181444"):
+        return "TIMEOUT"
+
     if request.args["UserID"] == None:
         pass
     else:
@@ -107,18 +115,18 @@ def userLocation():#receive user location
     else:
         yy = request.args["y"]
     if request.args["building"] == None or request.args["building"] == '':#não vai estar cá, só para teste
-        LogsDB.addLog(userid, xx, yy)     #em vez disto é calcular o build com as coords
+        datastore.addLog(userid, xx, yy)     #em vez disto é calcular o build com as coords
     else:
-        bid = request.args["building"]
+        bid = str(request.args["building"])
         try:
-            if LogsDB.userBuilding(userid) != bid:
-                BuildsDB.removeUserFromBuilding(LogsDB.userBuilding(userid), userid)
+            if datastore.userBuilding(userid) != bid:
+                datastore.removeUserFromBuilding(datastore.userBuilding(userid), userid)
         except Exception as e:
             pass
-        LogsDB.addLog(userid, xx, yy,building = bid)
+        datastore.addLog(userid, xx, yy,building = bid)
        
         try:
-            BuildsDB.addUserToBuilding(bid,userid)
+            datastore.addUserToBuilding(bid,userid)
         except Exception as e:
             pass
 
@@ -126,9 +134,9 @@ def userLocation():#receive user location
     #if (xx && yy) in buildings :
     #    building = BUILDING NAME
     
-    logs = LogsDB.listAllLogs()
+    logs = datastore.listAllLogs()
     
-    return render_template("UserMainPage.html")
+    return "OK"
 
 @app.route('/API/Users/<id>/Message')
 def userMessage():

@@ -7,22 +7,31 @@
 </head>
 
 <body onload="getLocation();">
-<h1>User ID?</h1>
+<h1>Welcome User {{username}}</h1>
+
+<div style="display: none;" id=userID>{{username}}</div>
 <div id = "divDest"></div>
-
-    <input id = "userID" type="text" name="userID"/>USER ID<br/>
-    <input type="button" onclick="sendLocation();">SEND LOG</input>
-
-
+    <input type="button" onclick="sendLog();">SEND LOG</input>
 <script>
 
 var x;
 var y;
 
-function sendLocation(){
+function sendLog(){
 	var xhttp = new XMLHttpRequest();
-	var id = document.getElementById("userID").value;
-    var req = "/API/Users/Location?UserID="+id+"&x="+x+"&y="+y+"&building="+2;
+  xhttp.onreadystatechange = function(){
+    if (this.readyState == 4 && this.status == 200) {
+      if(this.responseText == "TIMEOUT"){
+        if (confirm("Timeout, press Ok to reload!")) {
+          window.location.replace("/API/Users/Login");
+        } else {
+          window.location.replace("/");
+        }
+      }
+    }
+  };
+	var id = "{{username}}";
+  var req = "/API/Users/Location?UserID="+id+"&x="+x+"&y="+y+"&building="+2;
 	xhttp.open("GET",req, true)
 	xhttp.send()
 }
@@ -40,7 +49,6 @@ function getLocation() {
 function showPosition(position) {
   x = position.coords.latitude;
   y = position.coords.longitude;
-
 }
 </script>
 </body>

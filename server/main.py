@@ -9,6 +9,7 @@ from datastore import *
 app = Flask(__name__)
 
 datastore = Datastore()
+
 cache = Cache()
 
 admins = {'francisco':'123','miguel':'123'}
@@ -87,13 +88,17 @@ def userMainPage():
     if request.args["code"] == None:
         pass
     else:
-        code = request.args["code"]
-        config = fenixedu.FenixEduConfiguration.fromConfigFile()
-        client = fenixedu.FenixEduClient(config)
-        user = client.get_user_by_code(code)
-        person = client.get_person(user)
-        cache.insert(person['username'], code, 60)
-        datastore.addUser(person['username'])
+        try:
+            code = request.args["code"]
+            config = fenixedu.FenixEduConfiguration.fromConfigFile()
+            client = fenixedu.FenixEduClient(config)
+            user = client.get_user_by_code(code)
+            person = client.get_person(user)
+            cache.insert(person['username'], code, 60)
+            datastore.addUser(person['username'])
+        except Exception as e:
+            return redirect("/API/Users/Login")
+    
     return render_template("UserMainPage.html", username = person['username'])
 
 @app.route('/API/Users/Location', methods = ["GET"])

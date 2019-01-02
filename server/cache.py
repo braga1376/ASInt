@@ -1,5 +1,5 @@
-import pylibmc
 import os
+import bmemcached
 
 class Cache:
 	def __init__(self):
@@ -8,9 +8,7 @@ class Cache:
 		MEMCACHE_USERNAME = os.environ.get('MEMCACHE_USERNAME')
 		MEMCACHE_PASSWORD = os.environ.get('MEMCACHE_PASSWORD')
 
-		self.memcache_client = pylibmc.Client(
-		    [MEMCACHE_SERVER], binary=True,
-		    username=MEMCACHE_USERNAME, password=MEMCACHE_PASSWORD)
+		self.memcache_client = bmemcached.Client([MEMCACHE_SERVER], MEMCACHE_USERNAME, MEMCACHE_PASSWORD)
 
 	def insert(self, username, secret, time = None):
 		if time == None:

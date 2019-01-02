@@ -81,9 +81,9 @@ def main():
     
     user = getpass.getuser()
 
-    admin = Admin('https://asint-226517.appspot.com')
+    #admin = Admin('https://asint-226517.appspot.com')
     #admin = Admin('http://127.0.0.1:5000')
-
+    admin = Admin('https://asint-project-2018.appspot.com')
     for x in range (0,3):
         pswd = getpass.getpass('Password:')
         admind = {'admin':user,'pswd':pswd}

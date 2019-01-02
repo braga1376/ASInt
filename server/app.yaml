@@ -7,7 +7,7 @@ runtime_config:
 
 env_variables:
   MEMCACHE_SERVER: memcached-19016.c59.eu-west-1-2.ec2.cloud.redislabs.com:19016
-   # If you are using a third-party or self-hosted Memcached server with SASL
+  # If you are using a third-party or self-hosted Memcached server with SASL
   # authentiation enabled, uncomment and fill in these values with your
   # username and password.
   MEMCACHE_USERNAME: asint

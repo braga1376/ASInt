@@ -50,6 +50,7 @@ messaging.requestPermission()
 messaging.onMessage(function(payload) {
 	var para = document.createElement("p");
 	var node1 = document.createTextNode(payload.data.sender);
+	var node2 = document.createElement("br")
 	var node3 = document.createTextNode('  ->'+payload.data.message);
 	para.appendChild(node1);
 	para.appendChild(node2);

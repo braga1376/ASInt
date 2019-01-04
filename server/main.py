@@ -5,6 +5,7 @@ from flask import Flask, render_template, request, jsonify, redirect
 
 from cache import *
 from datastore import *
+from messages import *
 
 app = Flask(__name__)
 
@@ -14,6 +15,7 @@ cache = Cache()
 
 admins = {'francisco':'123','miguel':'123'}
 
+messages = Messages(datastore)
 
 @app.route('/')
 def mainpage():
@@ -46,7 +48,7 @@ def receiveBuildings():#receive all buildings fromm admin and send them to DB
         name = b['name']
         x = b['x']
         y = b['y']
-        datastore.addBuilding(bid, name, x, y)
+        datastore.addBuilding(bid, name, float(x), float(y))
 
     builds = datastore.listAllBuildings()
     #bdict = list(map(lambda x: x.to_dict(), builds))
@@ -123,7 +125,7 @@ def userLocation():#receive user location
 
     else:
         bid = datastore.isUserinBuilding(xx,yy,userid)
-        print('USER IS IN BUILDING', bid)
+        
         try:
             if datastore.userBuilding(userid) != bid:
                 datastore.removeUserFromBuilding(datastore.userBuilding(userid), userid)
@@ -153,12 +155,11 @@ def setUserToken(id):
 
 @app.route('/API/Users/<id>/Message', methods = ["POST"])
 def userMessage(id):
-    message = request.form
-    print("Message from "+id+":")
-    keys = message.keys()
-    for b in keys:
-        print(b)
 
+    data = json.loads(request.data.decode())
+    
+    messages.sendToBuilding(data['message'], id)
+    
     return "OK"
 
 @app.route('/API/Users/<id>/Setnearby')

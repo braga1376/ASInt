@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="Google App Engine SDK" type="python">
     <CLASSES>
-      <root url="file://C:/Users/migue/AppData/Local/Google/Cloud SDK/google-cloud-sdk/bin" />
+      <root url="file://$PROJECT_DIR$/.." />
     </CLASSES>
     <SOURCES />
   </library>

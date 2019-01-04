@@ -13,8 +13,8 @@
 
 
   <form id="inputchat">
-    Write a Message: <input type="text" name="message">
-    <input type="button" onclick="postMessageServer()" value="Submit">
+    Write a Message: <input type="text" name="message" id="message">
+    <input type="button" onclick="postMessageServer(document.getElementById('message').value)" value="Submit">
   </form>
 
   <p>Chat:</p>
@@ -38,7 +38,7 @@
   };
 
   function sendLog(){
-    getLocation();
+    //getLocation();
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function(){
       if (this.readyState == 4 && this.status == 200) {
@@ -60,8 +60,8 @@
     xhttp.send();
   }
 
-  function postMessageServer() {
-    var message = document.getElementById("message");
+  function postMessageServer(message) {
+    //var message = document.getElementById("message").value;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function(){
       if (this.readyState == 4 && this.status == 200) {
@@ -78,14 +78,15 @@
     var req = "/API/Users/"+id+"/Message";
     xhttp.open("POST",req, true);
     xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send({message:message});
+
+    xhttp.send(JSON.stringify({"message":message}));
   }
 
 
   function getLocation() {
   	var errorCallback;
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition,errorCallback,{timeout:1000});
+      navigator.geolocation.getCurrentPosition(showPosition,errorCallback,{timeout:1000000});
     } else { 
       document.getElementById("divDest").innerHTML = "Geolocation is not supported by this browser.";
     }

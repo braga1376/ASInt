@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <title>ASInt Project's Server</title>
+</head>
+<body>
+<h1 style="text-align:center;">Building DataBase</h1>
+{% for item in data %}
+<p style="text-align:center;">{{ item }}</p>
+{% endfor %}
+<br>
+<form action="/API/Users/Login" methods="GET">
+	<div style="text-align:center;">
+    <button class="button" style="vertical-align:middle"><span>Login</span></button>
+	</div>
+    <!-- <input text-align=center type="submit" value="Users"> -->
+	
+</form>
+
+</body>
+</html>

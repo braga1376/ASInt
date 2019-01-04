@@ -101,50 +101,65 @@ def userMainPage():
     
     return render_template("UserMainPage.html", username = person['username'])
 
-@app.route('/API/Users/Location', methods = ["GET"])
+@app.route('/API/Users/SendLog', methods = ["GET"])
 def userLocation():#receive user location
-    if not cache.check("ist181444"):
-        return "TIMEOUT"
-
     if request.args["UserID"] == None:
-        pass
+        return "Not OK"
     else:
         userid = request.args["UserID"]
+        if not cache.check(userid):
+            return "TIMEOUT"
     if request.args["x"] == None:
-        pass
+        return "Not OK"
     else:
         xx = request.args["x"]
     if request.args["y"] == None:
-        pass
+        return "Not OK"
     else:
         yy = request.args["y"]
-    if request.args["building"] == None or request.args["building"] == '':#não vai estar cá, só para teste
-        datastore.addLog(userid, xx, yy)     #em vez disto é calcular o build com as coords
+
+    if(xx == 'undefined' or yy == 'undefined'):
+        return "LOCUNDEFINED"
+
     else:
-        bid = str(request.args["building"])
+        bid = datastore.isUserinBuilding(xx,yy,userid)
+        print('USER IS IN BUILDING', bid)
         try:
             if datastore.userBuilding(userid) != bid:
                 datastore.removeUserFromBuilding(datastore.userBuilding(userid), userid)
         except Exception as e:
             pass
-        datastore.addLog(userid, xx, yy,building = bid)
-       
+        datastore.addLog(userid, xx, yy,building = bid)       
         try:
             datastore.addUserToBuilding(bid,userid)
         except Exception as e:
             pass
-
-    #check if in anybuilding
-    #if (xx && yy) in buildings :
-    #    building = BUILDING NAME
-    
-    logs = datastore.listAllLogs()
+        
+        logs = datastore.listAllLogs()
     
     return "OK"
 
-@app.route('/API/Users/<id>/Message')
-def userMessage():
-    pass
+@app.route('/API/Users/<id>/SetToken', methods = ["GET"])
+def setUserToken(id):
+    if not cache.check(id):
+            return "TIMEOUT"
+    if request.args["token"] == None:
+        return "Not OK"
+    else:
+        utoken = request.args["token"]    
+    if datastore.setUserToken(id, utoken) == 0:
+        return "Not OK"
+    return "OK"
+
+@app.route('/API/Users/<id>/Message', methods = ["POST"])
+def userMessage(id):
+    message = request.form
+    print("Message from "+id+":")
+    keys = message.keys()
+    for b in keys:
+        print(b)
+
+    return "OK"
 
 @app.route('/API/Users/<id>/Setnearby')
 def setNearby():#(?)
@@ -164,5 +179,11 @@ def register():
 def botMessage():
     pass
 
+##--------------Serviceworker----------------
+
+@app.route('/firebase-messaging-sw.js', methods=['GET'])
+def sw():
+    return app.send_static_file('firebase-messaging-sw.js')
+
 if __name__ == '__main__':
-	app.run(host = '127.0.0.1', port = 5000, debug = False)
+	app.run(host = '127.0.0.1', port = 5000, debug = True)

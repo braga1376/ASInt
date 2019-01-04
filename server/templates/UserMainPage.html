@@ -1,55 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-    <meta charset="UTF-8">
-    <title>UserMainPage</title>
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8">
+  <title>UserMainPage</title>
 </head>
 
-<body onload="getLocation();">
-<h1>Welcome User {{username}}</h1>
+<body>
+  <h1 style="text-align:center;">Welcome User {{username}}</h1>
 
-<div style="display: none;" id=userID>{{username}}</div>
-<div id = "divDest"></div>
-    <input type="button" onclick="sendLog();">SEND LOG</input>
-<script>
+  <div style="display: none;" id=userID>{{username}}</div>
 
-var x;
-var y;
 
-function sendLog(){
-	var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function(){
-    if (this.readyState == 4 && this.status == 200) {
-      if(this.responseText == "TIMEOUT"){
-        if (confirm("Timeout, press Ok to reload!")) {
-          window.location.replace("/API/Users/Login");
-        } else {
-          window.location.replace("/");
+  <form id="inputchat">
+    Write a Message: <input type="text" name="message">
+    <input type="button" onclick="postMessageServer()" value="Submit">
+  </form>
+
+  <p>Chat:</p>
+  <div id = "Chat"></div>
+  <button onclick="clearInterval(timedlog)">Stop log</button>
+
+  <script type='text/javascript' > 
+  var token = -1; 
+  var id = "{{username}}";
+  </script>
+  <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='messaging.js') }}"></script>
+  <script type="text/javascript">
+
+  var x;
+  var y;
+  var timedlog = setInterval(sendLog, 10000);
+  
+  window.onload = function() {
+    getLocation();
+  };
+
+  function sendLog(){
+    getLocation();
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function(){
+      if (this.readyState == 4 && this.status == 200) {
+        if(this.responseText == "TIMEOUT"){
+          if (confirm("Timeout, press Ok to reload!")) {
+            window.location.replace("/API/Users/Login");
+          } else {
+            window.location.replace("/");
+          }
+        }
+        else if(this.responseText == "LOCUNDEFINED"){
+          confirm("Undefined Location, please turn on Location Services!")
         }
       }
-    }
-  };
-	var id = "{{username}}";
-  var req = "/API/Users/Location?UserID="+id+"&x="+x+"&y="+y+"&building="+2;
-	xhttp.open("GET",req, true)
-	xhttp.send()
-}
+    };
 
-
-function getLocation() {
-	var errorCallback;
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition,errorCallback,{timeout:1000});
-  } else { 
-   	document.getElementById("divDest").innerHTML = "Geolocation is not supported by this browser.";
+    var req = "/API/Users/SendLog?UserID="+id+"&x="+x+"&y="+y;
+    xhttp.open("GET",req, true);
+    xhttp.send();
   }
-}
 
-function showPosition(position) {
-  x = position.coords.latitude;
-  y = position.coords.longitude;
-}
+  function postMessageServer() {
+    var message = document.getElementById("message");
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function(){
+      if (this.readyState == 4 && this.status == 200) {
+        if(this.responseText == "TIMEOUT"){
+          if (confirm("Timeout, press Ok to reload!")) {
+            window.location.replace("/API/Users/Login");
+          } else {
+            window.location.replace("/");
+          }
+        }
+      }
+    };
+
+    var req = "/API/Users/"+id+"/Message";
+    xhttp.open("POST",req, true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send({message:message});
+  }
+
+
+  function getLocation() {
+  	var errorCallback;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition,errorCallback,{timeout:1000});
+    } else { 
+      document.getElementById("divDest").innerHTML = "Geolocation is not supported by this browser.";
+    }
+  }
+
+  function showPosition(position) {
+    x = position.coords.latitude;
+    y = position.coords.longitude;
+  }
+
 </script>
 </body>
 </html>

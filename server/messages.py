@@ -29,4 +29,10 @@ class Messages():
 			if user != id:
 				self.sendMessage(data,id,self.datastore.userToken(user))
 
+	def sendToNearby(self,data, id):
+		token = self.datastore.userToken(id)
+		bid = self.datastore.userBuilding(id)
 
+		for user in self.datastore.usersNearby(bid):#TODO IN DATASTORE
+			if user != id:
+				self.sendMessage(data,id,self.datastore.userToken(user))

@@ -105,7 +105,6 @@ class Datastore:
 		key = self.client.key(userEnt,user_id,logEnt, user['nlogs'])
 		return self.client.get(key)['building']
 
-
 	def listUserLogs(self, user_id):
 		ancestor = self.client.key(userEnt, user_id)
 		query = self.client.query(kind=logEnt, ancestor=ancestor)
@@ -119,6 +118,11 @@ class Datastore:
 		for user in user_keys:
 			users_id.append(user.key.name)
 		return users_id
+
+	def getUserCoords(self,id):
+		log = self.showLog(id)
+		return {log['x'],log['y']}
+
 
 #------------------Logs---------------------
 

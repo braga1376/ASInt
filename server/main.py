@@ -19,172 +19,171 @@ messages = Messages(datastore)
 
 @app.route('/')
 def mainpage():
-    return render_template("mainPage.html", data = datastore.listAllBuildings())
+	return render_template("mainPage.html", data = datastore.listAllBuildings())
 
 #------------------ADMIN---------------------
 
 @app.route('/API/Admin', methods = ['POST'])
 def adminLogin(): #receive and verify user and password of admin
-    data=json.loads(request.data)
+	data=json.loads(request.data)
 
-    admin = data['admin']
-    pswd = data['pswd']
+	admin = data['admin']
+	pswd = data['pswd']
 
-    try:
-        if admins[admin] == pswd:
-            return "true"
-    except Exception as e:
-        pass
-        
-    return "false"
+	try:
+		if admins[admin] == pswd:
+			return "true"
+	except Exception as e:
+		pass
+		
+	return "false"
 
 @app.route('/API/Admin/Buildings', methods = ['POST'])
 def receiveBuildings():#receive all buildings fromm admin and send them to DB
 
-    data=json.loads(request.data)
-    
-    for b in data:
-        bid = b['id']
-        name = b['name']
-        x = b['x']
-        y = b['y']
-        datastore.addBuilding(bid, name, float(x), float(y))
+	data=json.loads(request.data)
+	
+	for b in data:
+		bid = b['id']
+		name = b['name']
+		x = b['x']
+		y = b['y']
+		datastore.addBuilding(bid, name, float(x), float(y))
 
-    builds = datastore.listAllBuildings()
-    #bdict = list(map(lambda x: x.to_dict(), builds))
-    return jsonify(builds)
-    
+	builds = datastore.listAllBuildings()
+	return jsonify(builds)
+	
 @app.route('/API/Admin/Users')
 def sendUsers(): #list all users
-    users = datastore.listUsers()
-    return jsonify(users)   
+	users = datastore.listUsers()
+	return jsonify(users)   
 
 @app.route('/API/Admin/Buildings/<id>/Users')
 def usersInBuilding(id): #list all users from a building
-    users = datastore.listBuildingUsers(id)
-    return jsonify(users)
+	users = datastore.listBuildingUsers(id)
+	return jsonify(users)
 
 @app.route('/API/Admin/Logs/Users/<id>', methods = ["GET"])
 def userHistory(id): #returns user logs history
-    logs = datastore.listUserLogs(id)
-    #logsdict = list(map(lambda x: x.to_dict(), logs))
-    return jsonify(logs)
+	logs = datastore.listUserLogs(id)
+	#logsdict = list(map(lambda x: x.to_dict(), logs))
+	return jsonify(logs)
 
 @app.route('/API/Admin/Logs/Buildings/<id>')
 def buildingHistory(id): #returns building logs history
-    logs = datastore.listBuildingLogs(id)
-    #logsdict = list(map(lambda x: x.to_dict(), logs))
-    return jsonify(logs)
+	logs = datastore.listBuildingLogs(id)
+	#logsdict = list(map(lambda x: x.to_dict(), logs))
+	return jsonify(logs)
 
 #------------------USERS---------------------
 
 @app.route('/API/Users/Login')
 def userLogin():
-    config = fenixedu.FenixEduConfiguration.fromConfigFile()
-    client = fenixedu.FenixEduClient(config)
-    url = client.get_authentication_url()
-    return redirect(url)
+	config = fenixedu.FenixEduConfiguration.fromConfigFile()
+	client = fenixedu.FenixEduClient(config)
+	url = client.get_authentication_url()
+	return redirect(url)
 
 @app.route('/API/Users/Home', methods = ["GET"])
 def userMainPage():
-    if request.args["code"] == None:
-        pass
-    else:
-        try:
-            code = request.args["code"]
-            config = fenixedu.FenixEduConfiguration.fromConfigFile()
-            client = fenixedu.FenixEduClient(config)
-            user = client.get_user_by_code(code)
-            person = client.get_person(user)
-            cache.insert(person['username'], code, 60)
-            datastore.addUser(person['username'])
-        except Exception as e:
-            return redirect("/API/Users/Login")
-    
-    return render_template("UserMainPage.html", username = person['username'])
+	if request.args["code"] == None:
+		pass
+	else:
+		try:
+			code = request.args["code"]
+			config = fenixedu.FenixEduConfiguration.fromConfigFile()
+			client = fenixedu.FenixEduClient(config)
+			user = client.get_user_by_code(code)
+			person = client.get_person(user)
+			cache.insert(person['username'], code, 60)
+			datastore.addUser(person['username'])
+		except Exception as e:
+			return redirect("/API/Users/Login")
+	
+	return render_template("UserMainPage.html", username = person['username'])
 
 @app.route('/API/Users/SendLog', methods = ["GET"])
 def userLocation():#receive user location
-    if request.args["UserID"] == None:
-        return "Not OK"
-    else:
-        userid = request.args["UserID"]
-        if not cache.check(userid):
-            return "TIMEOUT"
-    if request.args["x"] == None:
-        return "Not OK"
-    else:
-        xx = request.args["x"]
-    if request.args["y"] == None:
-        return "Not OK"
-    else:
-        yy = request.args["y"]
-
-    if(xx == 'undefined' or yy == 'undefined'):
-        return "LOCUNDEFINED"
-
-    else:
-        bid = datastore.isUserinBuilding(xx,yy,userid)
-        
-        try:
-            if datastore.userBuilding(userid) != bid:
-                datastore.removeUserFromBuilding(datastore.userBuilding(userid), userid)
-        except Exception as e:
-            pass
-        datastore.addLog(userid, xx, yy,building = bid)       
-        try:
-            datastore.addUserToBuilding(bid,userid)
-        except Exception as e:
-            pass
-        
-        logs = datastore.listAllLogs()
-    
-    return "OK"
+	if request.args["UserID"] == None:
+		return "Not OK"
+	else:
+		userid = request.args["UserID"]
+		if not cache.check(userid):
+			return "TIMEOUT"
+	if request.args["x"] == None:
+		return "Not OK"
+	else:
+		xx = request.args["x"]
+	if request.args["y"] == None:
+		return "Not OK"
+	else:
+		yy = request.args["y"]
+	if(xx == 'undefined' or yy == 'undefined'):
+		return "LOCUNDEFINED"
+	else:
+		datastore.updateUserBuilding(xx,yy,userid)
+	return "OK"
 
 @app.route('/API/Users/<id>/SetToken', methods = ["GET"])
 def setUserToken(id):
-    if not cache.check(id):
-            return "TIMEOUT"
-    if request.args["token"] == None:
-        return "Not OK"
-    else:
-        utoken = request.args["token"]    
-    if datastore.setUserToken(id, utoken) == 0:
-        return "Not OK"
-    return "OK"
+	if not cache.check(id):
+			return "TIMEOUT"
+	if request.args["token"] == None:
+		return "Not OK"
+	else:
+		utoken = request.args["token"]    
+	if datastore.setUserToken(id, utoken) == 0:
+		return "Not OK"
+	return "OK"
 
-@app.route('/API/Users/<id>/Message', methods = ["POST"])
-def userMessage(id):
+@app.route('/API/Users/<id>/MessageBuilding', methods = ["POST"])
+def userMessageBuilding(id):
+	data = json.loads(request.data.decode())
+	bid = datastore.userBuilding(id)    
+	messages.sendToBuilding(data['message'], id, bid)
+	return "OK"
 
-    data = json.loads(request.data.decode())
-    
-    messages.sendToBuilding(data['message'], id)
-    
-    return "OK"
+@app.route('/API/Users/<id>/MessageNearby', methods = ["POST"])
+def userMessageNearby(id):
+	data = json.loads(request.data.decode())
+	messages.sendToNearby(data['message'], id)    
+	return "OK"
 
-@app.route('/API/Users/<id>/Setnearby')
-def setNearby():#(?)
-    pass
+@app.route('/API/Users/<id>/Setnearby/<n>')
+def setNearby(id,n):
+	datastore.setUserNearby(id, n)
+	return "OK"
 
 @app.route('/API/Users/<id>/Nearby')
 def usersNearby():
-    pass
+	ret = datastore.usersNearby(id)
+	return ret
 
 #------------------BOTS----------------------
 
-@app.route('/API/Bots/Register')
-def register():
-    pass
-
-@app.route('/API/Bots/Message')
+@app.route('/API/Bots/SendMessage', methods = ['POST'])
 def botMessage():
-    pass
+	bot = json.loads(request.data)
+	bid = int(bot['bid'])
+	name = bot['name']
+	message = bot['message']
+	sleep = int(bot['sleeptime'])
+	
+	#if not in datastore, register
+	if not datastore.checkForBot(name):
+		datastore.registerBot(name, bid, sleep, message)
+	
+	messages.sendToBuilding(message, name, bid)
+	datastore.updateBot(name)
+
+	return "OK"
+	
 
 ##--------------Serviceworker----------------
 
 @app.route('/firebase-messaging-sw.js', methods=['GET'])
 def sw():
-    return app.send_static_file('firebase-messaging-sw.js')
+	return app.send_static_file('firebase-messaging-sw.js')
 
 if __name__ == '__main__':
 	app.run(host = '127.0.0.1', port = 5000, debug = True)

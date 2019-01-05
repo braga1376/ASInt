@@ -21,18 +21,12 @@ class Messages():
 		)
 		response = messaging.send(message)
 
-	def sendToBuilding(self, data, id):
-		token = self.datastore.userToken(id)
-		bid = self.datastore.userBuilding(id)
-
+	def sendToBuilding(self, data, id, bid):
 		for user in self.datastore.listBuildingUsers(bid):
 			if user != id:
 				self.sendMessage(data,id,self.datastore.userToken(user))
 
 	def sendToNearby(self,data, id):
-		token = self.datastore.userToken(id)
-		bid = self.datastore.userBuilding(id)
-
-		for user in self.datastore.usersNearby(bid):#TODO IN DATASTORE
+		for user in self.datastore.usersNearby(id):
 			if user != id:
 				self.sendMessage(data,id,self.datastore.userToken(user))

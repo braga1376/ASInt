@@ -60,8 +60,7 @@ def sendUsers(): #list all users
 
 @app.route('/API/Admin/Buildings/<id>/Users')
 def usersInBuilding(id): #list all users from a building
-	users = datastore.listBuildingUsers(id)
-	return jsonify(users)
+	return  datastore.listBuildingUsers(id)
 
 @app.route('/API/Admin/Logs/Users/<id>', methods = ["GET"])
 def userHistory(id): #returns user logs history
@@ -95,15 +94,15 @@ def userMainPage():
 			client = fenixedu.FenixEduClient(config)
 			user = client.get_user_by_code(code)
 			person = client.get_person(user)
-			cache.insert(person['username'], code, 60)
-			datastore.addUser(person['username'])
+			cache.insert(person['username'], code, 60*60)
+			datastore.addUser(person['username'], person['name'])
 		except Exception as e:
 			return redirect("/API/Users/Login")
 	
 	return render_template("UserMainPage.html", username = person['username'])
 
 @app.route('/API/Users/SendLog', methods = ["GET"])
-def userLocation():#receive user location
+def userLog():#receive user location
 	if request.args["UserID"] == None:
 		return "Not OK"
 	else:
@@ -121,7 +120,18 @@ def userLocation():#receive user location
 	if(xx == 'undefined' or yy == 'undefined'):
 		return "LOCUNDEFINED"
 	else:
-		datastore.updateUserBuilding(xx,yy,userid)
+		bid = datastore.isUserinBuilding(xx,yy,userid)
+		try:
+			if datastore.userBuilding(userid) != bid:
+				datastore.removeUserFromBuilding(datastore.userBuilding(userid), userid)
+		except Exception as e:
+			pass
+		datastore.addLog(userid, xx, yy,building = bid)
+		try:
+			datastore.addUserToBuilding(bid,userid)
+		except Exception as e:
+			pass
+			
 	return "OK"
 
 @app.route('/API/Users/<id>/SetToken', methods = ["GET"])
@@ -140,24 +150,23 @@ def setUserToken(id):
 def userMessageBuilding(id):
 	data = json.loads(request.data.decode())
 	bid = datastore.userBuilding(id)    
-	messages.sendToBuilding(data['message'], id, bid)
+	messages.sendToBuilding(data, id, bid)
 	return "OK"
 
 @app.route('/API/Users/<id>/MessageNearby', methods = ["POST"])
 def userMessageNearby(id):
 	data = json.loads(request.data.decode())
-	messages.sendToNearby(data['message'], id)    
+	messages.sendToNearby(data, id)    
 	return "OK"
 
-@app.route('/API/Users/<id>/Setnearby/<n>')
+@app.route('/API/Users/<id>/SetNearby/<n>', methods = ["GET"])
 def setNearby(id,n):
 	datastore.setUserNearby(id, n)
 	return "OK"
 
 @app.route('/API/Users/<id>/Nearby')
-def usersNearby():
-	ret = datastore.usersNearby(id)
-	return ret
+def usersNearby(id):	
+	return datastore.usersNearby(id)
 
 #------------------BOTS----------------------
 

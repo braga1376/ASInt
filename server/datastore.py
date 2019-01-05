@@ -1,6 +1,7 @@
 from google.cloud import datastore
 from numpy import linalg as LA
 import datetime
+import json
 
 buildingEnt = 'building'
 logEnt = 'log'
@@ -37,7 +38,11 @@ class Datastore:
 	def listBuildingUsers(self, b_id):
 		key = self.client.key(buildingEnt, b_id)
 		building = self.client.get(key)
-		return building['users']
+		dic={}
+		building = self.showBuilding(int(b_id))
+		for user in building['users']:
+			dic[user] = self.getUserName(user) 					
+		return json.dumps(dic)
 
 	def addUserToBuilding(self, b_id, user_id):
 		key = self.client.key(buildingEnt, b_id)
@@ -66,25 +71,13 @@ class Datastore:
 				return building.key.id
 		return 0
 
-	def updateUserBuilding(self,x,y,userid):
-		bid = self.isUserinBuilding(x,y,userid)
-		try:
-			if self.userBuilding(userid) != bid:
-				self.removeUserFromBuilding(self.userBuilding(userid), userid)
-		except Exception as e:
-			pass
-			self.addLog(userid, x, y,building = bid)
-		try:
-			self.addUserToBuilding(bid,userid)
-		except Exception as e:
-			pass
-		return
 #------------------User---------------------
 	
-	def addUser(self, user_id):
+	def addUser(self, user_id, name):
 		key = self.client.key(userEnt, user_id)
 		if self.client.get(key) == None:
 			user = datastore.Entity(key)
+			user['name'] = name
 			user['nlogs'] = 0
 			user['nearby'] = 10
 			user['token'] = -1
@@ -115,7 +108,7 @@ class Datastore:
 			return 0
 		else:
 			user = self.client.get(key)	
-			user['nearby'] = n
+			user['nearby'] = int(n)
 			self.client.put(user)
 		return 1
 
@@ -147,21 +140,27 @@ class Datastore:
 		log = self.showLog(id)
 		return [log['x'],log['y']]
 
+	def getUserName(self,id):
+		key = self.client.key(userEnt, id)
+		user = self.client.get(key)
+		return user['name']
+
 	def usersNearby(self,id):
 		coords = self.getUserCoords(id)
 		nearby = self.userNearby(id)
-		usersNearby = []
+		dic={}
 		for user in self.listUsers():
 			if user != id:
 				aux = self.getUserCoords(user)
 				r = LA.norm((float(coords[0])-float(aux[0]),float(coords[1])-float(aux[1])))
 				if r < nearby:
-					usersNearby.append(user)
-		return usersNearby
+					dic[user] = self.getUserName(user) 
+					
+		return json.dumps(dic)
 					
 #------------------Logs---------------------
 
-	def addLog(self,user_id, x, y, building = 'No building', message =''):
+	def addLog(self,user_id, x, y, building = 'No building', message ={}):
 		parent_key = self.client.key(userEnt, user_id)
 		user = self.client.get(parent_key)
 		user['nlogs'] += 1
@@ -174,7 +173,7 @@ class Datastore:
 			'created': datetime.datetime.utcnow(),
 			'x': x,
 			'y': y,
-			'message': message
+			'data': message
 		})
 		self.client.put(log)
 		return

@@ -11,11 +11,25 @@
 
   <div style="display: none;" id=userID>{{username}}</div>
 
+  <form id="setNearby">
+    Set Nearby Range: <input type="text" name="nearby" id="nearby">
+    <input type="button" onclick="setNearby(document.getElementById('nearby').value)" value="Set">
+  </form>
 
   <form id="inputchat">
-    Write a Message: <input type="text" name="message" id="message">
-    <input type="button" onclick="postMessageServer(document.getElementById('message').value)" value="Submit">
+    Write a Message to Your Building: <input type="text" name="message" id="message1">
+    <input type="button" onclick="postMessageServerBuilding(document.getElementById('message1').value)" value="Send">
   </form>
+
+  <form id="inputchat">
+    Write a Message to People Near You: <input type="text" name="message" id="message2">
+    <input type="button" onclick="postMessageServerNearby(document.getElementById('message2').value)" value="Send">
+  </form>
+
+  <form id="seeUsers">
+    <input type="button" onclick="getNearbyUsers()" value="Show Nearby Users">
+  </form>
+  <div id=usersNear></div>
 
   <p>Chat:</p>
   <div id = "Chat"></div>
@@ -60,7 +74,7 @@
     xhttp.send();
   }
 
-  function postMessageServer(message) {
+  function postMessageServerBuilding(message1) {
     //var message = document.getElementById("message").value;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function(){
@@ -80,14 +94,60 @@
     xhttp.open("POST",req, true);
     xhttp.setRequestHeader("Content-Type", "application/json");
 
-    xhttp.send(JSON.stringify({"message":message}));
+    xhttp.send(JSON.stringify({"message":message1}));
   }
 
+  function postMessageServerNearby(message2) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function(){
+      if (this.readyState == 4 && this.status == 200) {
+        if(this.responseText == "TIMEOUT"){
+          if (confirm("Timeout, press Ok to reload!")) {
+            window.location.replace("/API/Users/Login");
+          } else {
+            window.location.replace("/");
+          }
+        }
+      }
+    };
+
+    var req = "/API/Users/"+id+"/MessageNearby";
+    xhttp.open("POST",req, true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+
+    xhttp.send(JSON.stringify({"message":message2}));
+  }
+
+  function setNearby(nearby) {
+    var xhttp1 = new XMLHttpRequest();
+    var req = "/API/Users/"+id+"/SetNearby/"+nearby;
+    xhttp1.open("GET",req, true);
+    xhttp1.send();
+    };
+
+  function getNearbyUsers(){
+    var xhttp = new XMLHttpRequest();
+    var req = "/API/Users/"+id+"/Nearby";
+    xhttp.open("GET",req, true);
+    
+    //document.getElementById("nearby").innerHTML = xhttp.response;
+    //console.log(xhttp.responseText);
+    
+    xhttp.onreadystatechange = function() {
+        if (xhttp.readyState == XMLHttpRequest.DONE) {
+            s = decodeURIComponent(xhttp.responseText)
+            alert(s);
+            document.getElementById("usersNear").innerHTML = s
+        }
+    }
+    
+    xhttp.send(null);
+  }
 
   function getLocation() {
   	var errorCallback;
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition,errorCallback,{timeout:1000000});
+      navigator.geolocation.getCurrentPosition(showPosition,errorCallback,{timeout:1000});
     } else { 
       document.getElementById("divDest").innerHTML = "Geolocation is not supported by this browser.";
     }

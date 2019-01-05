@@ -22,11 +22,30 @@ class Messages():
 		response = messaging.send(message)
 
 	def sendToBuilding(self, data, id, bid):
+		c = self.datastore.getUserCoords(id)
+		data['sender'] = id
+		self.datastore.addLog(id, c[0], c[1], bid, message=data)
+
+		if bid == None:
+			return
+
 		for user in self.datastore.listBuildingUsers(bid):
 			if user != id:
-				self.sendMessage(data,id,self.datastore.userToken(user))
+				data['sender'] = id
+				c = self.datastore.getUserCoords(user)
+				self.datastore.addLog(user, c[0], c[1], bid, message=data)
+				self.sendMessage(data['message'],id,self.datastore.userToken(user))
 
 	def sendToNearby(self,data, id):
+
+		bid = self.datastore.userBuilding(id)
+		c = self.datastore.getUserCoords(id)
+		data['sender'] = id
+		self.datastore.addLog(id, c[0], c[1], bid, message=data)
+
 		for user in self.datastore.usersNearby(id):
 			if user != id:
-				self.sendMessage(data,id,self.datastore.userToken(user))
+				data['sender'] = id
+				c = self.datastore.getUserCoords(user)
+				self.datastore.addLog(user, c[0], c[1], bid, message=data)
+				self.sendMessage(data['message'],id,self.datastore.userToken(user))

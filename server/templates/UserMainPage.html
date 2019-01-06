@@ -12,7 +12,7 @@
   <div style="display: none;" id=userID>{{username}}</div>
 
   <form id="setNearby">
-    Set Nearby Range: <input type="text" name="nearby" id="nearby">
+    Set Nearby Range(meters): <input type="text" name="nearby" id="nearby">
     <input type="button" onclick="setNearby(document.getElementById('nearby').value)" value="Set">
   </form>
 
@@ -136,7 +136,7 @@
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState == XMLHttpRequest.DONE) {
             s = decodeURIComponent(xhttp.responseText)
-            alert(s);
+            //alert(s);
             document.getElementById("usersNear").innerHTML = s
         }
     }

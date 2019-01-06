@@ -1,7 +1,9 @@
 from google.cloud import datastore
 from numpy import linalg as LA
+from geopy.distance import geodesic
 import datetime
 import json
+
 
 buildingEnt = 'building'
 logEnt = 'log'
@@ -11,6 +13,23 @@ botEnt = 'bot'
 class Datastore:
 	def __init__(self):
 		self.client = datastore.Client.from_service_account_json('credentials.json')
+
+#-------------------General----------------------
+
+	def reset(self):
+
+		entities = ['bot', 'building','user', 'log']
+
+		for entity in entities:
+			query = self.client.query(kind=entity)
+			query.keys_only()
+			resultList = query.fetch()
+
+			for result in resultList:
+				self.client.delete(result.key)
+
+		return
+
 
 #------------------Buildings---------------------
 
@@ -43,6 +62,11 @@ class Datastore:
 		for user in building['users']:
 			dic[user] = self.getUserName(user) 					
 		return json.dumps(dic)
+
+	def listBuildingUsersID(self, b_id):		
+		key = self.client.key(buildingEnt, b_id)
+		building = self.client.get(key)
+		return building['users']
 
 	def addUserToBuilding(self, b_id, user_id):
 		key = self.client.key(buildingEnt, b_id)
@@ -146,17 +170,34 @@ class Datastore:
 		return user['name']
 
 	def usersNearby(self,id):
-		coords = self.getUserCoords(id)
+		c = self.getUserCoords(id)
+		coords = (c[0],c[1])
 		nearby = self.userNearby(id)
 		dic={}
 		for user in self.listUsers():
 			if user != id:
-				aux = self.getUserCoords(user)
-				r = LA.norm((float(coords[0])-float(aux[0]),float(coords[1])-float(aux[1])))
+				c = self.getUserCoords(user)
+				aux = (c[0],c[1])
+				r = geodesic(newport_ri, cleveland_oh).meters
 				if r < nearby:
 					dic[user] = self.getUserName(user) 
 					
 		return json.dumps(dic)
+
+	def usersNearbyID(self,id):
+		c = self.getUserCoords(id)
+		coords = (c[0],c[1])
+		nearby = self.userNearby(id)
+		users = []
+		for user in self.listUsers():
+			if user != id:
+				c = self.getUserCoords(user)
+				aux = (c[0],c[1])
+				r = geodesic(newport_ri, cleveland_oh).meters
+				if r < nearby:
+					users.append(user) 
+					
+		return users
 					
 #------------------Logs---------------------
 

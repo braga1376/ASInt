@@ -21,15 +21,16 @@ class Messages():
 		)
 		response = messaging.send(message)
 
-	def sendToBuilding(self, data, id, bid):
-		c = self.datastore.getUserCoords(id)
-		data['sender'] = id
-		self.datastore.addLog(id, c[0], c[1], bid, message=data)
+	def sendToBuilding(self, data, id, bid, bot = 0):
+		if bot == 0:
+			c = self.datastore.getUserCoords(id)
+			data['sender'] = id
+			self.datastore.addLog(id, c[0], c[1], bid, message=data)
 
 		if bid == None:
 			return
 
-		for user in self.datastore.listBuildingUsers(bid):
+		for user in self.datastore.listBuildingUsersID(bid):
 			if user != id:
 				data['sender'] = id
 				c = self.datastore.getUserCoords(user)
@@ -43,7 +44,7 @@ class Messages():
 		data['sender'] = id
 		self.datastore.addLog(id, c[0], c[1], bid, message=data)
 
-		for user in self.datastore.usersNearby(id):
+		for user in self.datastore.usersNearbyID(id):
 			if user != id:
 				data['sender'] = id
 				c = self.datastore.getUserCoords(user)

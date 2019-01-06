@@ -71,8 +71,12 @@ def userHistory(id): #returns user logs history
 @app.route('/API/Admin/Logs/Buildings/<id>')
 def buildingHistory(id): #returns building logs history
 	logs = datastore.listBuildingLogs(id)
-	#logsdict = list(map(lambda x: x.to_dict(), logs))
 	return jsonify(logs)
+
+@app.route('/API/Admin/ResetDB')
+def resetDB(): #resets Database
+	datastore.reset()
+	return "OK"
 
 #------------------USERS---------------------
 
@@ -172,17 +176,18 @@ def usersNearby(id):
 
 @app.route('/API/Bots/SendMessage', methods = ['POST'])
 def botMessage():
+	data = {}
 	bot = json.loads(request.data)
 	bid = int(bot['bid'])
 	name = bot['name']
-	message = bot['message']
+	data['message'] = bot['message']
 	sleep = int(bot['sleeptime'])
 	
-	#if not in datastore, register
+	# if not in datastore, register
 	if not datastore.checkForBot(name):
-		datastore.registerBot(name, bid, sleep, message)
+		datastore.registerBot(name, bid, sleep, data)
 	
-	messages.sendToBuilding(message, name, bid)
+	messages.sendToBuilding(data, name, bid, bot = 1)
 	datastore.updateBot(name)
 
 	return "OK"

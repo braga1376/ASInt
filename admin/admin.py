@@ -17,9 +17,12 @@ class Admin:
         data = r.json()
         print(data)
 
+    def getURI(self, uri):# receive values from request
+        r = requests.get(self.host + uri)
+
     def postToURI(self, uri, d):
         r = requests.post(self.host + uri, data = d )
-        print(r.text)
+        #print(r.text)
         return r.text
 
     def readFileToJSon(self, f):
@@ -43,7 +46,7 @@ class Admin:
             print(
                 '\nCommands available:\n\t1 - DEFINE BUILDINGS '
                 '\n\t2 - LIST USERS  \n\t3 - LIST USERS IN A BUILDING '
-                '\n\t4 - USER LOGS\n\t5 - BUILDING LOGS\n\t6 - EXIT')
+                '\n\t4 - USER LOGS\n\t5 - RESET DATABASE\n\t6 - EXIT')
             command = input("\n> ")
             if (command == "1"):
                 file = open('buildings',"r", encoding = "utf-8-sig")
@@ -66,10 +69,9 @@ class Admin:
                 uri = '/API/Admin/Logs/Users/' + userid
                 self.getFromURI(uri)
 
-            elif (command == "5"):# é preciso? não vejo no enunciado
-                buildingid = input("\nBuilding Identifier:\n\t\t")
-                uri = '/API/Admin/Logs/Buildings/' + buildingid
-                self.getFromURI(uri)
+            elif (command == "5"):
+                uri = '/API/Admin/ResetDB'
+                self.getURI(uri)
 
             elif (command == "6"):
                 return
@@ -88,8 +90,9 @@ def main():
         pswd = getpass.getpass('Password:')
         admind = {'admin':user,'pswd':pswd}
         uri = '/API/Admin'
-        print(json.dumps(admind))
+        #print(json.dumps(admind))
         if admin.postToURI(uri, json.dumps(admind)) == "true":
+            print('Successful Login!')
             break
         else:
             if x == 2:

@@ -47,8 +47,8 @@ def main():
 	#bot.sendMessage()
 	while(True):
 		bot.sendMessage()
-		time.sleep(30)
-		print('sent message'+ i)
+		time.sleep(sleep)
+		print('sent message'+ str(i))
 		i+=1
 
 if __name__ == "__main__":

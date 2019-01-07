@@ -1,58 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="font-family: 'Slabo 27px', serif;">
+<link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
 <head>
+  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
   <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
   <meta charset="UTF-8">
-  <title>UserMainPage</title>
+  <title>User {{username}}</title>
+
 </head>
 
 <body>
-  <h1 style="text-align:center;">Welcome User {{username}}</h1>
-
+  <h1 style="text-align:center">Welcome User {{username}}</h1>
+  <br/>
+  <br/>
   <div style="display: none;" id=userID>{{username}}</div>
 
-  <form id="setNearby">
-    Set Nearby Range(meters): <input type="text" name="nearby" id="nearby">
+  <div style="text-align:center"><div>You are inside </div> <div id=UserBuilding></div></div>
+
+  <br/>
+  <br/>
+  <form id="setNearby" onSubmit="return false" style="text-align:center">
+    Set Nearby Range(meters): <input type="text" name="nearby" id="nearby"  align="right">
     <input type="button" onclick="setNearby(document.getElementById('nearby').value)" value="Set">
   </form>
 
-  <form id="inputchat">
-    Write a Message to Your Building: <input type="text" name="message" id="message1">
+  <form id="inputchat" onSubmit="return false" style="text-align:center">
+    Write a Message to Your Building: <input type="text" name="message" id="message1"  align="right">
     <input type="button" onclick="postMessageServerBuilding(document.getElementById('message1').value)" value="Send">
   </form>
 
-  <form id="inputchat">
-    Write a Message to People Near You: <input type="text" name="message" id="message2">
+  <form id="inputchat" onSubmit="return false" style="text-align:center">
+    Write a Message to People Near You: <input type="text" name="message" id="message2"  align="right">
     <input type="button" onclick="postMessageServerNearby(document.getElementById('message2').value)" value="Send">
   </form>
+  <br/>
 
-  <form id="seeUsers">
+  <form id="seeUsers" style="text-align:center">
     <input type="button" onclick="getNearbyUsers()" value="Show Nearby Users">
+    <input type="button" onclick="clearInterval(timedlog)" style="text-align:center" value="Stop logging"></input>
+    <input type="button" onclick="resetLogs()" style="text-align:center" value="Restart logging"></input>
   </form>
-  <div id=usersNear></div>
-
+  <br/>
+  <div id=usersNear style="text-align:center"></div>
+ 
   <p>Chat:</p>
-  <div id = "Chat"></div>
-  <button onclick="clearInterval(timedlog)">Stop log</button>
-
+  <div id = "Chat" style="background-color:lightblue;overflow-y:scroll; height:200px;width:400px;"></div>
   <script type='text/javascript' > 
   var token = -1; 
   var id = "{{username}}";
   </script>
   <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='messaging.js') }}"></script>
-  <script type="text/javascript">
+  <script type="text/javascript" charset="UTF-8">
 
   var x;
   var y;
   var timedlog = setInterval(sendLog, 10000);
+  //var receiveBUilding = setInterval(building,10000)
   
   window.onload = function() {
     getLocation();
   };
 
+  function resetLogs(){
+    timedlog = setInterval(sendLog, 10000);
+  }
+
+  function nearbyKeyPress(e){
+  e=e||window.event;
+  var key = e.keyCode;
+  if(key==13) //Enter
+  {
+     setNearby(document.getElementById('nearby').value);
+  }
+}
+
+  function building(){
+    var xhttp = new XMLHttpRequest();
+    var req = "/API/Users/"+id+"/MyBuilding";
+    xhttp.open("GET",req, true);
+        
+    xhttp.onreadystatechange = function() {
+        if (xhttp.readyState == XMLHttpRequest.DONE) {
+            
+            //alert(s);
+            document.getElementById("UserBuilding").innerHTML = xhttp.responseText  
+        }
+    }
+    xhttp.send(null);
+  }
+
+  function printMessage(message) {
+    var para = document.createElement("p");
+    para.setAttribute('align', "right");
+    var node1 = document.createTextNode("[YOU]");
+    var node2 = document.createElement("br")
+    var node3 = document.createTextNode(message+"<-");
+    para.appendChild(node1);
+    para.appendChild(node2);
+    para.appendChild(node3);
+    var element = document.getElementById("Chat");
+    element.appendChild(para);
+  }
+
   function sendLog(){
-    //getLocation();
+    getLocation();
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function(){
       if (this.readyState == 4 && this.status == 200) {
@@ -72,6 +124,8 @@
     var req = "/API/Users/SendLog?UserID="+id+"&x="+x+"&y="+y;
     xhttp.open("GET",req, true);
     xhttp.send();
+    building();
+    
   }
 
   function postMessageServerBuilding(message1) {
@@ -93,7 +147,7 @@
     //var req = "/API/Users/"+id+"/MessageNearby";
     xhttp.open("POST",req, true);
     xhttp.setRequestHeader("Content-Type", "application/json");
-
+    printMessage(message1)
     xhttp.send(JSON.stringify({"message":message1}));
   }
 
@@ -114,7 +168,7 @@
     var req = "/API/Users/"+id+"/MessageNearby";
     xhttp.open("POST",req, true);
     xhttp.setRequestHeader("Content-Type", "application/json");
-
+    printMessage(message2)
     xhttp.send(JSON.stringify({"message":message2}));
   }
 
@@ -130,14 +184,10 @@
     var req = "/API/Users/"+id+"/Nearby";
     xhttp.open("GET",req, true);
     
-    //document.getElementById("nearby").innerHTML = xhttp.response;
-    //console.log(xhttp.responseText);
-    
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState == XMLHttpRequest.DONE) {
-            s = decodeURIComponent(xhttp.responseText)
-            //alert(s);
-            document.getElementById("usersNear").innerHTML = s
+            s = unescape(encodeURIComponent(xhttp.responseText));
+            document.getElementById("usersNear").innerHTML = s;
         }
     }
     

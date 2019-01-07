@@ -13,9 +13,9 @@ class Admin:
 
     def getFromURI(self, uri):# receive values from request
         r = requests.get(self.host + uri)
-        print(r)
+        #print(r)
         data = r.json()
-        print(data)
+        return(data)
 
     def getURI(self, uri):# receive values from request
         r = requests.get(self.host + uri)
@@ -28,10 +28,12 @@ class Admin:
     def readFileToJSon(self, f):
         d = {}
         dic = []
+        print('Buildings Sent:')
         for line in f:
             s = line.replace('\n','').split(' ')
             d['id'] = s[0]
             d['name'] = s[1].replace('_', ' ')
+            print('->'+d['name'])
             d['x'] = s[2]
             d['y'] = s[3]
             dic.append((copy.deepcopy(d)))
@@ -51,27 +53,39 @@ class Admin:
             if (command == "1"):
                 file = open('buildings',"r", encoding = "utf-8-sig")
                 j = self.readFileToJSon(file)
-                print(j)
+                #print(j)
                 uri = '/API/Admin/Buildings'
-                self.postToURI(uri, j)
+                data = self.postToURI(uri, j)
 
             elif (command == "2"):
                 uri = '/API/Admin/Users'
-                self.getFromURI(uri)
+                data = self.getFromURI(uri)
+                for key in data.keys():
+                    print(key+'->'+data[key])
 
             elif (command == "3"):
                 buildingid = input("\n\tBuilding Identifier:\n\t\t")
                 uri = '/API/Admin/Buildings/' + buildingid + '/Users'
-                self.getFromURI(uri)
+                data = self.getFromURI(uri)
+                for key in data.keys():
+                    print(key+'->'+data[key])
 
             elif (command == "4"):
                 userid = input("\n\tUser Identifier:\n\t\t")
                 uri = '/API/Admin/Logs/Users/' + userid
-                self.getFromURI(uri)
-
+                data = self.getFromURI(uri)                
+                for item in data:
+                    if item['data'] == {}: 
+                        string = f"{item['created']}, building: {item['building']}, coords: ({item['x']},{item['y']})"
+                    else:
+                        string = f"{item['created']}, building: {item['building']}, coords: ({item['x']},{item['y']}), Message: {item['data']['message']} From {item['data']['sender']}"
+                    print(string)
+#item['created'] + '\tbuilding: ' + item['building']+ '\tcoords ' +
             elif (command == "5"):
                 uri = '/API/Admin/ResetDB'
+                print("Performing Reset...")
                 self.getURI(uri)
+                print("Reset Complete!")
 
             elif (command == "6"):
                 return
@@ -84,8 +98,8 @@ def main():
     user = getpass.getuser()
 
     #admin = Admin('https://asint-226517.appspot.com')
-    admin = Admin('http://127.0.0.1:5000')
-    #admin = Admin('https://asint-project-2018.appspot.com')
+    #admin = Admin('http://127.0.0.1:5000')
+    admin = Admin('https://asint-project-2018.appspot.com')
     for x in range (0,3):
         pswd = getpass.getpass('Password:')
         admind = {'admin':user,'pswd':pswd}

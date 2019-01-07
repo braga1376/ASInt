@@ -55,8 +55,7 @@ def receiveBuildings():#receive all buildings fromm admin and send them to DB
 	
 @app.route('/API/Admin/Users')
 def sendUsers(): #list all users
-	users = datastore.listUsers()
-	return jsonify(users)   
+	return datastore.listUsers()
 
 @app.route('/API/Admin/Buildings/<id>/Users')
 def usersInBuilding(id): #list all users from a building
@@ -138,6 +137,13 @@ def userLog():#receive user location
 			
 	return "OK"
 
+@app.route('/API/Users/<id>/MyBuilding', methods = ["GET"])
+def myBuildind(id):
+	bid = datastore.userBuilding(id)
+	return datastore.buildingName(bid)
+
+	
+
 @app.route('/API/Users/<id>/SetToken', methods = ["GET"])
 def setUserToken(id):
 	if not cache.check(id):
@@ -169,8 +175,12 @@ def setNearby(id,n):
 	return "OK"
 
 @app.route('/API/Users/<id>/Nearby')
-def usersNearby(id):	
-	return datastore.usersNearby(id)
+def usersNearby(id):
+	try:
+		ret = datastore.usersNearby(id)
+	except Exception as e:
+		return {}
+	return ret
 
 #------------------BOTS----------------------
 

@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# coding=utf-8
 from google.cloud import datastore
 from numpy import linalg as LA
 from geopy.distance import geodesic
@@ -50,6 +52,15 @@ class Datastore:
 		building = self.client.get(key)
 		return building
 
+	def buildingName(self, b_id):
+		try:
+			key = self.client.key(buildingEnt, b_id)
+			building = self.client.get(key)
+			ret = building['name']
+		except Exception as e:
+			return 'No Building'
+		return ret
+
 	def listAllBuildings(self):
 		query = self.client.query(kind=buildingEnt)
 		return list(query.fetch())
@@ -63,10 +74,14 @@ class Datastore:
 			dic[user] = self.getUserName(user) 					
 		return json.dumps(dic)
 
-	def listBuildingUsersID(self, b_id):		
-		key = self.client.key(buildingEnt, b_id)
-		building = self.client.get(key)
-		return building['users']
+	def listBuildingUsersID(self, b_id):
+		try:
+			key = self.client.key(buildingEnt, b_id)
+			building = self.client.get(key)
+			return building['users']
+		except Exception as e:
+			raise []		
+		
 
 	def addUserToBuilding(self, b_id, user_id):
 		key = self.client.key(buildingEnt, b_id)
@@ -83,17 +98,22 @@ class Datastore:
 		self.client.put(building)
 		return
 
-	def isUserinBuilding(self,x,y, user_id):
-		try:
-			nearby = self.userNearby(user_id)
-		except Exception as e:
-			nearby = 10 #DEFAULT
-
+	def isUserinBuilding(self, x, y, user_id):
+		inside = 100
+		aux = (x, y)
+		possible = []
+		mindist = inside
+		closer = -1
 		for building in self.listAllBuildings():
-			r = LA.norm((float(x)-float(building['x']),float(y)-float(building['y'])))
-			if r < nearby:
-				return building.key.id
-		return 0
+			build = float(building['x']), float(building['y'])
+			r = geodesic(build, aux).meters
+			if r < inside and r < mindist:
+				closer = building.key.id
+
+		if closer != -1:
+			return closer
+		else:
+			return 0
 
 #------------------User---------------------
 	
@@ -103,7 +123,7 @@ class Datastore:
 			user = datastore.Entity(key)
 			user['name'] = name
 			user['nlogs'] = 0
-			user['nearby'] = 10
+			user['nearby'] = 1000
 			user['token'] = -1
 			self.client.put(user)
 		return
@@ -153,16 +173,19 @@ class Datastore:
 
 	def listUsers(self):
 		query = self.client.query(kind=userEnt)
-		query.keys_only()
 		user_keys = query.fetch()
-		users_id = []
+		users= {}
 		for user in user_keys:
-			users_id.append(user.key.name)
-		return users_id
+			users[user.key.name] = user['name']
+		return json.dumps(users,sort_keys=True, ensure_ascii=False)
 
 	def getUserCoords(self,id):
-		log = self.showLog(id)
-		return [log['x'],log['y']]
+		try:
+			log = self.showLog(id)
+			res = [log['x'],log['y']]
+		except Exception as e:
+			return None
+		return res
 
 	def getUserName(self,id):
 		key = self.client.key(userEnt, id)
@@ -170,17 +193,25 @@ class Datastore:
 		return user['name']
 
 	def usersNearby(self,id):
-		c = self.getUserCoords(id)
-		coords = (c[0],c[1])
-		nearby = self.userNearby(id)
-		dic={}
-		for user in self.listUsers():
+		try:
+			c = self.getUserCoords(id)
+			coords = (c[0],c[1])
+			nearby = self.userNearby(id)
+			dic={}
+			users = json.loads(self.listUsers())
+		except:
+			return {}
+		for user in users:
 			if user != id:
-				c = self.getUserCoords(user)
-				aux = (c[0],c[1])
-				r = geodesic(newport_ri, cleveland_oh).meters
-				if r < nearby:
-					dic[user] = self.getUserName(user) 
+				try:
+					c = self.getUserCoords(user)
+					aux = (c[0],c[1])
+					r = geodesic(coords, aux).meters
+					name = users[user]
+					if r < nearby:
+						dic[user] = name
+				except Exception as e:
+					pass
 					
 		return json.dumps(dic)
 
@@ -189,19 +220,21 @@ class Datastore:
 		coords = (c[0],c[1])
 		nearby = self.userNearby(id)
 		users = []
-		for user in self.listUsers():
+		for user in json.loads(self.listUsers()):
 			if user != id:
-				c = self.getUserCoords(user)
-				aux = (c[0],c[1])
-				r = geodesic(newport_ri, cleveland_oh).meters
-				if r < nearby:
-					users.append(user) 
-					
+				try:
+					c = self.getUserCoords(user)
+					aux = (c[0],c[1])
+					r = geodesic(coords, aux).meters
+					if r < nearby:
+						users.append(user) 
+				except Exception as e:
+					pass
 		return users
 					
 #------------------Logs---------------------
 
-	def addLog(self,user_id, x, y, building = 'No building', message ={}):
+	def addLog(self, user_id, x, y, building=0, message={}):
 		parent_key = self.client.key(userEnt, user_id)
 		user = self.client.get(parent_key)
 		user['nlogs'] += 1
@@ -221,9 +254,15 @@ class Datastore:
 
 	def showLog(self, user_id):
 		parent_key = self.client.key(userEnt, user_id)
-		user = self.client.get(parent_key)
-		key = self.client.key(userEnt,user_id,logEnt, user['nlogs'])
-		return self.client.get(key)
+		try:
+			user = self.client.get(parent_key)
+					
+			key = self.client.key(userEnt,user_id,logEnt, user['nlogs'])
+		
+			result =  self.client.get(key)
+		except Exception as e:
+			return None		
+		return result
 
 	def listAllLogs(self):
 		query = self.client.query(kind=logEnt)

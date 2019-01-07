@@ -50,6 +50,7 @@ messaging.requestPermission()
 messaging.onMessage(function(payload) {
 	var para = document.createElement("p");
 	para.setAttribute('align', "left");
+	para.setAttribute('class',"rchatLog")
     para.setAttribute('style', "font-family: 'Comfortaa', cursive;");
 	var node1 = document.createTextNode(payload.data.sender);
 	var node2 = document.createElement("br")

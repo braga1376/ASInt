@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# coding=utf-8
 import os
 import json
 import fenixedu
@@ -173,6 +175,10 @@ def userMessageNearby(id):
 def setNearby(id,n):
 	datastore.setUserNearby(id, n)
 	return "OK"
+
+@app.route('/API/Users/<id>/SetNearby/', methods = ["GET"])
+def setNearbyEmpty(id,n):
+	pass
 
 @app.route('/API/Users/<id>/Nearby')
 def usersNearby(id):

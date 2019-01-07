@@ -1,50 +1,53 @@
 <!DOCTYPE html>
-<html lang="en" style="font-family: 'Slabo 27px', serif;">
-<link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+<html lang="en">
+
 <head>
   <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
-  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
   <meta charset="UTF-8">
   <title>User {{username}}</title>
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='user.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
 
 </head>
 
-<body>
+<body style="text-align:center;font-family: 'Comfortaa', cursive;">
   <h1 style="text-align:center">Welcome User {{username}}</h1>
-  <br/>
   <br/>
   <div style="display: none;" id=userID>{{username}}</div>
 
   <div style="text-align:center"><div>You are inside </div> <div id=UserBuilding></div></div>
 
   <br/>
-  <br/>
   <form id="setNearby" onSubmit="return false" style="text-align:center">
-    Set Nearby Range(meters): <input type="text" name="nearby" id="nearby"  align="right">
-    <input type="button" onclick="setNearby(document.getElementById('nearby').value)" value="Set">
+    Set Nearby Range(meters): <input type="text" name="nearby" id="nearby"  align="right" value=100>
+    <input type="button" class="smallbutton" onclick="setNearby(document.getElementById('nearby').value)" value="Set">
   </form>
 
-  <form id="inputchat" onSubmit="return false" style="text-align:center">
+  <form id="inputchat2" onSubmit="return false" style="text-align:center">
     Write a Message to Your Building: <input type="text" name="message" id="message1"  align="right">
-    <input type="button" onclick="postMessageServerBuilding(document.getElementById('message1').value)" value="Send">
+    <input type="button" class="smallbutton" onclick="postMessageServerBuilding(document.getElementById('message1').value)" value="Send">
   </form>
 
-  <form id="inputchat" onSubmit="return false" style="text-align:center">
+  <form id="inputchat1" onSubmit="return false" style="text-align:center">
     Write a Message to People Near You: <input type="text" name="message" id="message2"  align="right">
-    <input type="button" onclick="postMessageServerNearby(document.getElementById('message2').value)" value="Send">
+    <input type="button" class="smallbutton" onclick="postMessageServerNearby(document.getElementById('message2').value)" value="Send">
   </form>
   <br/>
 
   <form id="seeUsers" style="text-align:center">
-    <input type="button" onclick="getNearbyUsers()" value="Show Nearby Users">
-    <input type="button" onclick="clearInterval(timedlog)" style="text-align:center" value="Stop logging"></input>
-    <input type="button" onclick="resetLogs()" style="text-align:center" value="Restart logging"></input>
+    <input type="button" class="button" onclick="getNearbyUsers()" value="Show Nearby Users">
+    <input type="button" class="button" onclick="clearInterval(timedlog)" style="text-align:center" value="Stop logging"></input>
+    <input type="button" class="button" onclick="resetLogs()" style="text-align:center" value="Restart logging"></input>
   </form>
   <br/>
-  <div id=usersNear style="text-align:center"></div>
+  <div id=usersNear style="text-align:center;font-family: 'Comfortaa', cursive;"></div>
  
-  <p>Chat:</p>
-  <div id = "Chat" style="background-color:lightblue;overflow-y:scroll; height:200px;width:400px;"></div>
+  <p style="font-family:'Comfortaa', cursive; font-size:35px;text-align:center">Chat</p>
+
+  <div align="center">
+  <div id = "Chat" style="background-color:lightblue;overflow-y:scroll; height:200px;width:800px;"></div>
+  </div>
+
   <script type='text/javascript' > 
   var token = -1; 
   var id = "{{username}}";
@@ -52,6 +55,7 @@
   <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='messaging.js') }}"></script>
   <script type="text/javascript" charset="UTF-8">
+
 
   var x;
   var y;
@@ -93,9 +97,11 @@
   function printMessage(message) {
     var para = document.createElement("p");
     para.setAttribute('align', "right");
+    para.setAttribute('class','chatlog')
+    para.setAttribute('style', "font-family: 'Comfortaa', cursive;");
     var node1 = document.createTextNode("[YOU]");
     var node2 = document.createElement("br")
-    var node3 = document.createTextNode(message+"<-");
+    var node3 = document.createTextNode(message);
     para.appendChild(node1);
     para.appendChild(node2);
     para.appendChild(node3);
@@ -210,4 +216,45 @@
 
 </script>
 </body>
+<style type="text/css">
+  
+.smallbutton {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #377ba8;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 13px;
+    padding: 5px;
+    width: 50px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    align-content: center;
+    align-self: end;
+}
+
+
+.button {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #377ba8;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 15px;
+    padding: 10px;
+    width: 150px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    align-content: center;
+    align-self: end;
+}
+
+.chatlog {
+  align-self: left
+}
+</style>
 </html>

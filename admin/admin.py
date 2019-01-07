@@ -10,6 +10,7 @@ class Admin:
 
     def __init__(self, host):
         self.host = host
+        self.nbuilds = 0
 
     def getFromURI(self, uri):# receive values from request
         r = requests.get(self.host + uri)
@@ -37,6 +38,7 @@ class Admin:
             d['x'] = s[2]
             d['y'] = s[3]
             dic.append((copy.deepcopy(d)))
+            self.nbuilds +=1
         return json.dumps(dic)
             
 
@@ -65,6 +67,9 @@ class Admin:
 
             elif (command == "3"):
                 buildingid = input("\n\tBuilding Identifier:\n\t\t")
+                if int(buildingid) < 1 or (buildingid) > nbuilds:
+                    print('There is no such building, sorry!')
+                    continue
                 uri = '/API/Admin/Buildings/' + buildingid + '/Users'
                 data = self.getFromURI(uri)
                 for key in data.keys():

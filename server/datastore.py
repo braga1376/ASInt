@@ -80,7 +80,7 @@ class Datastore:
 			building = self.client.get(key)
 			return building['users']
 		except Exception as e:
-			raise []		
+			return []		
 		
 
 	def addUserToBuilding(self, b_id, user_id):
@@ -139,32 +139,46 @@ class Datastore:
 		return 1
 
 	def userToken(self, user_id):
-		key = self.client.key(userEnt, user_id)
-		if self.client.get(key) == None:
+		try:
+			key = self.client.key(userEnt, user_id)
+			if self.client.get(key) == None:
+				return 0
+			else:
+				user = self.client.get(key)	
+				return user['token']
+		except Exception as e:
 			return 0
-		else:
-			user = self.client.get(key)	
-			return user['token']
+		
 
 	def setUserNearby(self, user_id, n):
-		key = self.client.key(userEnt, user_id)
-		if self.client.get(key) == None:
+		try:
+			key = self.client.key(userEnt, user_id)
+			if self.client.get(key) == None:
+				return 0
+			else:
+				user = self.client.get(key)	
+				user['nearby'] = int(n)
+				self.client.put(user)
+			return 1			
+		except Exception as e:
 			return 0
-		else:
-			user = self.client.get(key)	
-			user['nearby'] = int(n)
-			self.client.put(user)
-		return 1
 
 	def userNearby(self, user_id):
-		key = self.client.key(userEnt, user_id)
-		return self.client.get(key)['nearby']
+		try:
+			key = self.client.key(userEnt, user_id)
+			return self.client.get(key)['nearby']
+		except Exception as e:
+			return 0
 
 	def userBuilding(self,user_id):
-		parent_key = self.client.key(userEnt, user_id)
-		user = self.client.get(parent_key)
-		key = self.client.key(userEnt,user_id,logEnt, user['nlogs'])
-		return self.client.get(key)['building']
+		try:
+			parent_key = self.client.key(userEnt, user_id)
+			user = self.client.get(parent_key)
+			key = self.client.key(userEnt,user_id,logEnt, user['nlogs'])
+			return self.client.get(key)['building']
+		except Exception as e:
+			return 0
+		
 
 	def listUserLogs(self, user_id):
 		ancestor = self.client.key(userEnt, user_id)
@@ -216,21 +230,25 @@ class Datastore:
 		return json.dumps(dic)
 
 	def usersNearbyID(self,id):
-		c = self.getUserCoords(id)
-		coords = (c[0],c[1])
-		nearby = self.userNearby(id)
-		users = []
-		for user in json.loads(self.listUsers()):
-			if user != id:
-				try:
-					c = self.getUserCoords(user)
-					aux = (c[0],c[1])
-					r = geodesic(coords, aux).meters
-					if r < nearby:
-						users.append(user) 
-				except Exception as e:
-					pass
-		return users
+		try:
+			c = self.getUserCoords(id)
+			coords = (c[0],c[1])
+			nearby = self.userNearby(id)
+			users = []
+			for user in json.loads(self.listUsers()):
+				if user != id:
+					try:
+						c = self.getUserCoords(user)
+						aux = (c[0],c[1])
+						r = geodesic(coords, aux).meters
+						if r < nearby:
+							users.append(user) 
+					except Exception as e:
+						pass
+			return users
+		except Exception as e:
+			return []
+		
 					
 #------------------Logs---------------------
 

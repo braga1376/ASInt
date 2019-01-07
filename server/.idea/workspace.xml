@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="696e707e-ede2-4c99-b415-ae65cdcfd417" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../admin/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bot/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/../bot/bot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/datastore.py" beforeDir="false" afterPath="$PROJECT_DIR$/datastore.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/messages.py" beforeDir="false" afterPath="$PROJECT_DIR$/messages.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/messaging.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/messaging.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/UserMainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/UserMainPage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/mainPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mainPage.html" afterDir="false" />
     </list>
@@ -17,20 +23,20 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/server$Flask__main_py_.coverage" NAME="Flask (main.py) Coverage Results" MODIFIED="1546875473414" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/server$Flask__main_py_.coverage" NAME="Flask (main.py) Coverage Results" MODIFIED="1546886628599" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/server$server.coverage" NAME="server Coverage Results" MODIFIED="1546613151009" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/server$Flask__main_py___1_.coverage" NAME="Flask (main.py) (1) Coverage Results" MODIFIED="1546613246278" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/server$messages.coverage" NAME="messages Coverage Results" MODIFIED="1546477131745" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-655">
-              <caret line="60" column="19" selection-start-line="60" selection-start-column="4" selection-end-line="60" selection-end-column="19" />
+            <state relative-caret-position="-235">
+              <caret line="112" column="9" lean-forward="true" selection-start-line="112" selection-start-column="9" selection-end-line="112" selection-end-column="9" />
               <folding>
-                <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#37#46#0" expanded="true" />
                 <element signature="e#587#763#0" />
                 <element signature="e#900#1127#0" />
               </folding>
@@ -38,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/datastore.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="102" column="45" selection-start-line="102" selection-start-column="29" selection-end-line="102" selection-end-column="45" />
+            <state relative-caret-position="2329">
+              <caret line="141" column="12" selection-start-line="141" selection-start-column="12" selection-end-line="141" selection-end-column="12" />
               <folding>
                 <element signature="e#37#71#0" expanded="true" />
               </folding>
@@ -53,8 +59,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/messages.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="46" selection-start-line="46" selection-end-line="46" />
+            <state relative-caret-position="833">
+              <caret line="53" selection-start-line="53" selection-end-line="53" />
             </state>
           </provider>
         </entry>
@@ -62,8 +68,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/UserMainPage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2754">
-              <caret line="212" column="7" selection-start-line="212" selection-start-column="7" selection-end-line="212" selection-end-column="7" />
+            <state relative-caret-position="3723">
+              <caret line="259" column="7" selection-start-line="259" selection-start-column="7" selection-end-line="259" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -99,7 +105,10 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -225,12 +234,13 @@
       <workItem from="1546612968151" duration="324000" />
       <workItem from="1546613294570" duration="25475000" />
       <workItem from="1546723083550" duration="388000" />
-      <workItem from="1546784379097" duration="26541000" />
+      <workItem from="1546784379097" duration="33258000" />
+      <workItem from="1546883036133" duration="3746000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65703000" />
+    <option name="totallyTimeSpent" value="76166000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -240,7 +250,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32850242" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.510467" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.6376812" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.38969404" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -267,12 +277,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/datastore.py</url>
-          <line>170</line>
+          <line>188</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/datastore.py</url>
-          <line>97</line>
+          <line>101</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -282,18 +292,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/datastore.py</url>
-          <line>98</line>
+          <line>102</line>
           <option name="timeStamp" value="42" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/datastore.py</url>
-          <line>99</line>
+          <line>103</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/datastore.py</url>
-          <line>104</line>
+          <line>108</line>
           <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/datastore.py</url>
+          <line>141</line>
+          <option name="timeStamp" value="45" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -308,20 +323,6 @@
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/codecs.py" />
     <entry file="file://$PROJECT_DIR$/static/receive.js" />
     <entry file="file:///usr/local/lib/python3.6/dist-packages/flask/app.py" />
-    <entry file="file://$PROJECT_DIR$/templates/UserMainPage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2754">
-          <caret line="212" column="7" selection-start-line="212" selection-start-column="7" selection-end-line="212" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/messages.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/google/cloud/datastore/query.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-86">
@@ -338,10 +339,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-655">
-          <caret line="60" column="19" selection-start-line="60" selection-start-column="4" selection-end-line="60" selection-end-column="19" />
+        <state relative-caret-position="-235">
+          <caret line="112" column="9" lean-forward="true" selection-start-line="112" selection-start-column="9" selection-end-line="112" selection-end-column="9" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#37#46#0" expanded="true" />
             <element signature="e#587#763#0" />
             <element signature="e#900#1127#0" />
           </folding>
@@ -350,11 +351,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/datastore.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="102" column="45" selection-start-line="102" selection-start-column="29" selection-end-line="102" selection-end-column="45" />
+        <state relative-caret-position="2329">
+          <caret line="141" column="12" selection-start-line="141" selection-start-column="12" selection-end-line="141" selection-end-column="12" />
           <folding>
             <element signature="e#37#71#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/messages.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="53" selection-start-line="53" selection-end-line="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/UserMainPage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3723">
+          <caret line="259" column="7" selection-start-line="259" selection-start-column="7" selection-end-line="259" selection-end-column="7" />
         </state>
       </provider>
     </entry>

@@ -26,8 +26,8 @@ def dataToDict(name, bid, message, sleep):
 
 def main():
 	
-	#host = 'http://127.0.0.1:5000'
-	host = 'https://asint-project-2018.appspot.com'
+	host = 'http://127.0.0.1:5000'
+	#host = 'https://asint-project-2018.appspot.com'
 
 	print('----Lets create a Bot!----')
 	print('Please insert Bot\'s name')

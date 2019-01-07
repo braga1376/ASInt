@@ -22,13 +22,17 @@ class Messages():
 		response = messaging.send(message)
 
 	def sendToBuilding(self, data, id, bid, bot = 0):
-		if bot == 0:
-			c = self.datastore.getUserCoords(id)
-			data['sender'] = id
-			self.datastore.addLog(id, c[0], c[1], bid, message=data)
+		
+		try:
+			if bot == 0:
+				c = self.datastore.getUserCoords(id)
+				data['sender'] = id
+				self.datastore.addLog(id, c[0], c[1], bid, message=data)
 
-		if bid == None:
-			return
+			if bid == None:
+				return
+		except Exception as e:
+			return			
 
 		for user in self.datastore.listBuildingUsersID(bid):
 			if user != id:
@@ -39,10 +43,13 @@ class Messages():
 
 	def sendToNearby(self,data, id):
 
-		bid = self.datastore.userBuilding(id)
-		c = self.datastore.getUserCoords(id)
-		data['sender'] = id
-		self.datastore.addLog(id, c[0], c[1], bid, message=data)
+		try:
+			bid = self.datastore.userBuilding(id)
+			c = self.datastore.getUserCoords(id)
+			data['sender'] = id
+			self.datastore.addLog(id, c[0], c[1], bid, message=data)
+		except Exception as e:
+			return
 
 		for user in self.datastore.usersNearbyID(id):
 			if user != id:
